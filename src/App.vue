@@ -28,10 +28,8 @@
       <span :class="{ done: todo.done }" @click="doneTodo(todo)">
         {{todo.content}}
       </span> 
-
-      <q-btn push @click="removeTodo(index)" label="Remove" color="red" />
     </li>
-    
+    <q-btn push @click="removeTodo(index)" label="Remove" color="red" />
   </ul>
   <h4 v-if="todos.length === 0">-- Insert item --</h4>
 </div>

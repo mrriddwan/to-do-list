@@ -16,21 +16,26 @@
     />
     </div>
     <div>
-    <q-btn @click="addTodo()" color="purple" label="Add To Do" />
+    <q-btn @click="addTodo()" color="purple" label="Add" />
     </div>
   </form>
 </div>
 
 <div>
   <h2>list</h2>
-  <ul>
-    <li v-for="(todo, index) in todos" :key="index">
-      <span :class="{ done: todo.done }" @click="doneTodo(todo)">
+
+  <ul v-for="(todo, index) in todos" :key="index">
+    <li> 
+      <span :class="{ done: todo.done }">
         {{todo.content}}
-      </span> 
+      </span>
     </li>
+
     <q-btn push @click="removeTodo(index)" label="Remove" color="red" />
+    <q-btn push @click="doneTodo(todo)" label="Done" color="green"/>
+
   </ul>
+
   <h4 v-if="todos.length === 0">-- Insert item --</h4>
 </div>
 
@@ -38,6 +43,7 @@
 
 <script>
 import { ref } from 'vue';
+
 
 export default {
   name: 'App',
@@ -55,13 +61,15 @@ export default {
       if (newTodo.value) {
         todos.value.push({
           done: false,
-          content: newTodo.value,
+          content: newTodo.value,          
         });
         newTodo.value = '';
       }
       saveData();
     }
+
     function doneTodo(todo) {
+
       todo.done = !todo.done;
       saveData();
     }
@@ -73,6 +81,7 @@ export default {
       const storageData = JSON.stringify(todos.value);
       localStorage.setItem('todos', storageData);
     }
+
     return {
       todos,
       newTodo,
@@ -116,14 +125,18 @@ ul {
 }
 
 li {
-  width: 1000px;
+  width: 500px;
   font-family: 'Comfortaa', cursive;
   display: inline-block;
-  font-size: 50px;
+  font-size: 30px;
   background-color: rgb(175, 135, 214);
   padding: 20px;
-  margin: 20px;
+  margin: 10px;
   border-radius: 25px;
+}
+
+li .done {
+  text-decoration: line-through;
 }
 
 h1 {
@@ -136,6 +149,11 @@ h1 {
 h2 {
   font-family: 'Readex Pro', sans-serif;
   margin: 5px;
+}
+
+h4 {
+  font-family: 'Comfortaa', cursive;
+  font-style: bold;
 }
 
 @font-face {
